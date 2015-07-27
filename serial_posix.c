@@ -186,7 +186,7 @@ static port_err_t serial_setup(serial_t *h, const serial_baud_t baud,
 	tcgetattr(h->fd, &settings);
 	if (settings.c_iflag != h->newtio.c_iflag ||
 	    settings.c_oflag != h->newtio.c_oflag ||
-	    settings.c_cflag != h->newtio.c_cflag ||
+	    (settings.c_cflag&0xffff) != h->newtio.c_cflag ||
 	    settings.c_lflag != h->newtio.c_lflag)
 		return PORT_ERR_UNKNOWN;
 
